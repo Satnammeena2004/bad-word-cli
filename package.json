@@ -1,0 +1,17 @@
+{
+  "name": "bad-word-cli",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "bin": "./index.mjs",
+  "dependencies": {
+    "bad-words": "^4.0.0",
+    "commander": "^14.0.0"
+  }
+}
