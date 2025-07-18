@@ -1,6 +1,6 @@
 {
   "name": "bad-word-cli",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A CLI to clean and detect profane words using the 'bad-words' package",
   "bin": {
     "bad-word-cli": "bin/index.js"
@@ -9,7 +9,13 @@
   "scripts": {
     "start": "node bin/index.js"
   },
-  "keywords": ["cli", "profanity", "bad-words", "filter", "text-cleaner"],
+  "keywords": [
+    "cli",
+    "profanity",
+    "bad-words",
+    "filter",
+    "text-cleaner"
+  ],
   "author": "Satnam Meena",
   "license": "MIT",
   "dependencies": {

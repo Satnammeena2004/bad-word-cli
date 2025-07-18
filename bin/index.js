@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { Filter } from "bad-words";
+import Filter from "bad-words";
 import { Command } from "commander";
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
@@ -12,7 +12,9 @@ const program = new Command();
 program
   .name("bad-word-cli")
   .version("0.2.0")
-  .description("A CLI tool to detect and clean profane words using the 'bad-words' package.");
+  .description(
+    "A CLI tool to detect and clean profane words using the 'bad-words' package."
+  );
 
 // isProfane command
 program
@@ -25,7 +27,8 @@ program
     const { example } = options;
 
     if (example) {
-      console.log(chalk.gray(`
+      console.log(
+        chalk.gray(`
 🧪 Example:
 
 $ bad-word-cli isProfane "hell"
@@ -33,7 +36,8 @@ $ bad-word-cli isProfane "hell"
 
 $ bad-word-cli isProfane "hello"
 ✅ ${chalk.green("Clean")}
-      `));
+      `)
+      );
       return;
     }
 
@@ -53,7 +57,8 @@ program
     const { add, remove, example } = options;
 
     if (example) {
-      console.log(chalk.gray(`
+      console.log(
+        chalk.gray(`
 🧪 Example:
 
 $ bad-word-cli clean "assh0le"
@@ -61,7 +66,8 @@ $ bad-word-cli clean "assh0le"
 
 $ bad-word-cli clean "badword here" -a badword
 🧼 ${chalk.blue("Cleaned: ******* here")}
-      `));
+      `)
+      );
       return;
     }
 
@@ -78,13 +84,16 @@ program
   .argument("<filepath>", "Path to the file for cleaning")
   .option("-r, --rewrite", "Overwrite the original file with cleaned content")
   .option("-n, --newname <filename>", "Save cleaned content to a new file")
+  .option("-a, --add <words...>", "Add custom words to the filter")
+  .option("-rm, --remove <words...>", "Remove words from the filter")
   .option("-e, --example", "Show an example of how to use this command")
   .description("Clean profanities in a file")
   .action(async (filepath, options) => {
-    const { rewrite, newname, example } = options;
+    const { rewrite, newname, example, add, remove } = options;
 
     if (example) {
-      console.log(chalk.gray(`
+      console.log(
+        chalk.gray(`
 🧪 Example:
 
 $ bad-word-cli file ./input.txt -r
@@ -92,9 +101,12 @@ $ bad-word-cli file ./input.txt -r
 
 $ bad-word-cli file ./input.txt -n cleaned.txt
 📄 ${chalk.yellow("Cleaned file saved as: cleaned.txt")}
-      `));
+      `)
+      );
       return;
     }
+    if (remove?.length) filter.removeWords(...remove);
+    if (add?.length) filter.addWords(...add);
 
     const fullPath = path.resolve(filepath);
 
@@ -108,7 +120,9 @@ $ bad-word-cli file ./input.txt -n cleaned.txt
       } else if (newname) {
         const newFilePath = path.resolve(newname);
         await writeFile(newFilePath, cleaned);
-        console.log(`📄 ${chalk.yellow("Cleaned file saved as:")} ${newFilePath}`);
+        console.log(
+          `📄 ${chalk.yellow("Cleaned file saved as:")} ${newFilePath}`
+        );
       } else {
         console.log(`${chalk.blue("🧼 Cleaned content:")}\n\n${cleaned}`);
       }
