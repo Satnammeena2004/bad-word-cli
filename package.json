@@ -1,6 +1,6 @@
 {
   "name": "bad-word-cli",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A CLI to clean and detect profane words using the 'bad-words' package",
   "bin": {
     "bad-word-cli": "bin/index.js"
