@@ -11,7 +11,7 @@ const program = new Command();
 
 program
   .name("bad-word-cli")
-  .version("0.2.0")
+  .version("1.2.0")
   .description(
     "A CLI tool to detect and clean profane words using the 'bad-words' package."
   );
